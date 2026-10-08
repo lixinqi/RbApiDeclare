@@ -1,0 +1,18 @@
+# assistant 对外的接口：它在会议里会做的事。
+#
+# 两件：把人类说的话放进 store（落在案子自己的数据路径下）；最后收个尾。要它发言的工单，就在它的
+# 名下写一步。发工单是它在程序外头的事（唯一的派单者），程序里它只说这两件。
+#
+# 结果还是那两样：`$module_path` 和 `$func_name`。
+
+stated_task =
+    ($module_path str * $func_name str)
+  <- $env Env
+  <- { 人类说了什么：那句话落在案子自己的数据路径下，这一步把它接进来 }
+
+closing_note =
+    ($module_path str * $func_name str)
+  <- $env Env
+  <- $result ($module_path str * $func_name str)
+  <- $verdict ($module_path str * $func_name str)
+  <- { 说一句这场会的结果：$result 是最后那版，$verdict 是它判下来合格没有 }

@@ -1,0 +1,11 @@
+# critic 对外的接口：它判案。判哪一份由工单给；**哪些规则可能被违反，它自己找**——
+# 规则是它自己带着的东西，不由工单点名。
+#
+# 结果和实参都是 `interpret` 递延里给的那两样：`$module_path` 和 `$func_name`。
+
+judge =
+    ($module_path str * $func_name str)
+  <- $env Env
+  <- $under_judgment ($module_path str * $func_name str)
+  <- { 拿 $under_judgment 那一份，自己找出可能违反的规则，逐条判：结论记在这条数据路径下的 judge，
+       说不合格的那句话记在 objection }

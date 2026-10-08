@@ -1,0 +1,33 @@
+# actor 对外的接口：它在会议里会做的事。实现是 actor 自己的（一个会做活的 agent）。
+#
+# 结果和实参都是同一个写法：`$module_path`（这次调用跑在哪条数据路径下）和 `$func_name`（到了哪个
+# 定义）——`interpret` 递延里给的就是这两样。要做的那件事不在这里面：它在 store 里，谁要用谁照这两样
+# 去读。哪个案子、做什么，这份文件里一个字都不出现：案子由跑的时候给的 $env 决定。
+
+acknowledge =
+    ($module_path str * $func_name str)
+  <- $env Env
+  <- $about ($module_path str * $func_name str)
+  <- { 在会议里回一句"知道了"：回的是 $about 那件事；话由说话的人自己说 }
+
+do_step =
+    ($module_path str * $func_name str)
+  <- $env Env
+  <- $task ($module_path str * $func_name str)
+  <- $after ($module_path str * $func_name str)
+  <- { 接在 $after 那一步之后，照 $task 那份题面做一版：做成什么由那份题面定，成果放在这条数据
+       路径下 }
+
+report_done =
+    ($module_path str * $func_name str)
+  <- $env Env
+  <- $result ($module_path str * $func_name str)
+  <- $after ($module_path str * $func_name str)
+  <- { 接在 $after 之后回一句"做好了"，成果在 $result；话由说话的人自己说 }
+
+redo_step =
+    ($module_path str * $func_name str)
+  <- $env Env
+  <- $result ($module_path str * $func_name str)
+  <- $objection ($module_path str * $func_name str)
+  <- { 照它说过的地方再做一版：$result 是上一版，$objection 说的是哪里不合格 }
