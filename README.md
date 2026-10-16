@@ -5,7 +5,8 @@ RemoteBuddy 导出给规范的那几个接口：一个角色会哪些算子，�
 ```
 rb_api/
     actor_api.viba          actor 会哪些算子
-    critic_api.viba         critic 会哪些算子
+    tech_critic_api.viba    tech_critic 会哪些算子（判活：代码这一边）
+    mgmt_critic_api.viba    mgmt_critic 会哪些算子（判流程：这场会走完没有）
     assistant_api.viba      assistant 会哪些算子
 ```
 
@@ -20,7 +21,8 @@ rb_api/
 各自那一边。声明一改，规范和实现都得跟着改——所以这里的增补要慢。
 
 **只有接口**。这里没有实现，也没有一个角色在会议里做的事：算子的实现分别在 `RemoteBuddy-core` 的
-`tickets/actor.py`、`tickets/critic.py`、`tickets/assistant.py` 里。
+`tickets/actor.py`、`tickets/critic.py`（tech_critic 那一侧）、`tickets/mgmt_critic.py`、
+`tickets/assistant.py` 里。
 
 规范自己也能带一份 `<角色>_api.viba`（多一个角色）；和这里的名字撞上是不允许的，跑的时候当场报出来。
 
