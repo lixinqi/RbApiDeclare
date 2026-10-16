@@ -1,0 +1,10 @@
+# mgmt_critic 对外的接口：它看流程。代码好不好不归它管（那是 tech_critic 的事）。
+#
+# 结果和实参都是 `interpret` 递延里给的那两样：`$module_path` 和 `$func_name`。
+
+check =
+    ($module_path str * $func_name str)
+  <- $env Env
+  <- { 读这场会发过的单和它们的进度：该发的都发过没有、发出去的都做完了没有；actor 要交的那一份
+       东西落了没有。结论记在这条数据路径下的 judge；答 false 的时候，"哪里不完整"的那句话
+       记在 objection，一句一条问题 }
