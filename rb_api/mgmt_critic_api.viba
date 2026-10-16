@@ -5,6 +5,7 @@
 check =
     ($module_path str * $func_name str)
   <- $env Env
+  <- $judged ($module_path str * $func_name str)
   <- { 读这场会发过的单和它们的进度：该发的都发过没有、发出去的都做完了没有；actor 要交的那一份
-       东西落了没有。结论记在这条数据路径下的 judge；答 false 的时候，"哪里不完整"的那句话
-       记在 objection，一句一条问题 }
+       东西落了没有。结论记在这条数据路径下的 check；答 false 的时候，"哪里不完整"的那句话
+       记在 objection，一句一条问题。$judged 是 tech_critic 最后那次判决——流程这一问等它有了才问 }
